@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务状态 | 全球导航定位服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- 引入字体图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 服务状态页面特定样式 */
+        .status-header {
+            background-color: var(--dark-surface);
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .global-status {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: var(--spacing-md);
+        }
+        
+        .status-indicator.green {
+            background-color: var(--success);
+            box-shadow: 0 0 10px rgba(0, 184, 148, 0.6);
+        }
+        
+        .status-indicator.yellow {
+            background-color: var(--warning);
+            box-shadow: 0 0 10px rgba(253, 203, 110, 0.6);
+        }
+        
+        .status-indicator.red {
+            background-color: var(--error);
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.6);
+        }
+        
+        .last-update {
+            color: var(--medium-text);
+            font-size: 0.9rem;
+        }
+        
+        .service-map {
+            height: 500px;
+            background-color: var(--dark-bg);
+            border-radius: var(--border-radius-lg);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.imgur.com/6cZKx5J.png');
+            background-size: cover;
+            opacity: 0.6;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+        
+        .region-status {
+            background-color: var(--dark-surface);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--border-color);
+        }
+        
+        .region-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .service-list {
+            margin-top: var(--spacing-md);
+        }
+        
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-name {
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-icon {
+            margin-right: var(--spacing-sm);
+            color: var(--tech-cyan);
+        }
+        
+        .live-metrics {
+            background-color: var(--dark-surface);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-xxl);
+            border: 1px solid var(--border-color);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .metric-card {
+            background-color: var(--dark-bg);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: var(--spacing-md) 0;
+            background: linear-gradient(90deg, var(--light-text), var(--tech-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .metric-label {
+            color: var(--medium-text);
+            font-size: 1rem;
+        }
+        
+        .incident-history {
+            margin-top: var(--spacing-xxl);
+        }
+        
+        .incidents-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-xl);
+        }
+        
+        .incidents-table th,
+        .incidents-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .incidents-table th {
+            color: var(--light-text);
+            font-weight: 600;
+            background-color: var(--dark-surface);
+        }
+        
+        .incidents-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .incident-status {
+            padding: 4px 8px;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .incident-status.resolved {
+            background-color: rgba(0, 184, 148, 0.2);
+            color: var(--success);
+        }
+        
+        .incident-status.monitoring {
+            background-color: rgba(253, 203, 110, 0.2);
+            color: var(--warning);
+        }
+        
+        .incident-status.investigating {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--error);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav-container">
+        <div class="logo">
+            <span class="logo-icon"><i class="fas fa-satellite"></i></span>
+            <span class="logo-text">GeoPrec<span class="highlight">Nav</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">首页</a></li>
+            <li><a href="service-status.html" class="active">服务状态</a></li>
+            <li><a href="service-order.html">服务订购</a></li>
+            <li><a href="about.html">关于我们</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="btn btn-login">登录</button>
+            <button class="btn btn-register">注册</button>
+        </div>
+    </nav>
+
+    <section class="container">
+        <h1>全球服务状态</h1>
+        <p class="subtitle">实时监控我们的RTK与PPP服务状态，确保您的定位服务随时可用</p>
+        
+        <div class="status-header">
+            <div class="global-status">
+                <div class="status-indicator green" id="global-status-indicator"></div>
+                <div>
+                    <h3>全球系统状态: <span id="global-status-text">运行正常</span></h3>
+                    <p>所有系统和服务均正常运行</p>
+                </div>
+            </div>
+            <div class="last-update">
+                最后更新: <span id="last-update-time">2023-06-15 14:30:25</span>
+                <button class="btn btn-outline refresh-btn" id="refresh-btn"><i class="fas fa-sync-alt"></i> 刷新</button>
+            </div>
+        </div>
+        
+        <div class="service-map">
+            <div class="map-overlay"></div>
+            <div class="station-indicators" id="map-stations">
+                <!-- 站点指示器将通过JavaScript动态生成 -->
+            </div>
+        </div>
+        
+        <div class="status-grid">
+            <div class="region-status">
+                <div class="region-header">
+                    <h3>亚太地区</h3>
+                    <div class="status-indicator green"></div>
+                </div>
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-broadcast-tower service-icon"></i>
+                            RTK网络
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-satellite-dish service-icon"></i>
+                            PPP服务
+                        </div>
+                        <span class="status-badge optimal">99.8% 可用</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-server service-icon"></i>
+                            数据中心
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="region-status">
+                <div class="region-header">
+                    <h3>欧洲地区</h3>
+                    <div class="status-indicator green"></div>
+                </div>
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-broadcast-tower service-icon"></i>
+                            RTK网络
+                        </div>
+                        <span class="status-badge optimal">99.9% 可用</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-satellite-dish service-icon"></i>
+                            PPP服务
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-server service-icon"></i>
+                            数据中心
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="region-status">
+                <div class="region-header">
+                    <h3>北美地区</h3>
+                    <div class="status-indicator green"></div>
+                </div>
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-broadcast-tower service-icon"></i>
+                            RTK网络
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-satellite-dish service-icon"></i>
+                            PPP服务
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-server service-icon"></i>
+                            数据中心
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="region-status">
+                <div class="region-header">
+                    <h3>南美地区</h3>
+                    <div class="status-indicator yellow"></div>
+                </div>
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-broadcast-tower service-icon"></i>
+                            RTK网络
+                        </div>
+                        <span class="status-badge warning">部分延迟</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-satellite-dish service-icon"></i>
+                            PPP服务
+                        </div>
+                        <span class="status-badge optimal">98.5% 可用</span>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-name">
+                            <i class="fas fa-server service-icon"></i>
+                            数据中心
+                        </div>
+                        <span class="status-badge optimal">100% 可用</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="live-metrics">
+            <h2 class="section-title">实时平台指标</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <i class="fas fa-users" style="font-size: 2rem; color: var(--tech-cyan);"></i>
+                    <div class="metric-value" id="active-users">8,426</div>
+                    <div class="metric-label">当前活跃用户</div>
+                </div>
+                
+                <div class="metric-card">
+                    <i class="fas fa-satellite" style="font-size: 2rem; color: var(--tech-cyan);"></i>
+                    <div class="metric-value" id="active-stations">5,283</div>
+                    <div class="metric-label">活跃基准站</div>
+                </div>
+                
+                <div class="metric-card">
+                    <i class="fas fa-bolt" style="font-size: 2rem; color: var(--tech-cyan);"></i>
+                    <div class="metric-value" id="response-time">0.14s</div>
+                    <div class="metric-label">平均响应时间</div>
+                </div>
+                
+                <div class="metric-card">
+                    <i class="fas fa-calendar-check" style="font-size: 2rem; color: var(--tech-cyan);"></i>
+                    <div class="metric-value" id="uptime">99.98%</div>
+                    <div class="metric-label">本月系统可用率</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="incident-history">
+            <h2 class="section-title">最近事件历史</h2>
+            <table class="incidents-table">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>事件</th>
+                        <th>影响范围</th>
+                        <th>持续时间</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023-06-10</td>
+                        <td>南美RTK网络部分延迟</td>
+                        <td>巴西南部地区</td>
+                        <td>35分钟</td>
+                        <td><span class="incident-status resolved">已解决</span></td>
+                    </tr>
+                    <tr>
+                        <td>2023-06-05</td>
+                        <td>欧洲数据中心例行维护</td>
+                        <td>全欧洲地区</td>
+                        <td>120分钟</td>
+                        <td><span class="incident-status resolved">已解决</span></td>
+                    </tr>
+                    <tr>
+                        <td>2023-05-28</td>
+                        <td>亚太地区部分卫星信号干扰</td>
+                        <td>东南亚部分区域</td>
+                        <td>60分钟</td>
+                        <td><span class="incident-status resolved">已解决</span></td>
+                    </tr>
+                    <tr>
+                        <td>2023-05-15</td>
+                        <td>全球系统升级</td>
+                        <td>所有地区</td>
+                        <td>180分钟</td>
+                        <td><span class="incident-status resolved">已解决</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- 登录注册弹窗 (同首页) -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="auth-form">
+                <h2>用户登录</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                        <a href="#" class="forgot-password">忘记密码?</a>
+                    </div>
+                </form>
+                <div class="form-footer">
+                    <p>还没有账号? <a href="#" id="switch-to-register">立即注册</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="auth-form">
+                <h2>用户注册</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="reg-name">姓名</label>
+                        <input type="text" id="reg-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">邮箱</label>
+                        <input type="email" id="reg-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">密码</label>
+                        <input type="password" id="reg-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password-confirm">确认密码</label>
+                        <input type="password" id="reg-password-confirm" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">注册</button>
+                    </div>
+                </form>
+                <div class="form-footer">
+                    <p>已有账号? <a href="#" id="switch-to-login">立即登录</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fas fa-satellite"></i></span>
+                    <span class="logo-text">GeoPrec<span class="highlight">Nav</span></span>
+                </div>
+                <p>全球领先的RTK与PPP服务提供商，为精密定位与导航提供可靠支持。</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>快速链接</h3>
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="service-status.html">服务状态</a></li>
+                    <li><a href="service-order.html">服务订购</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>联系我们</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 北京市海淀区科技园区</p>
+                <p><i class="fas fa-phone"></i> 400-800-XXXX</p>
+                <p><i class="fas fa-envelope"></i> contact@geoprecnav.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 GeoPreNav 全球精准导航定位服务 | 保留所有权利</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+    <script>
+        // 服务状态页面特定的JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新时间
+            function updateTime() {
+                const now = new Date();
+                const options = { 
+                    year: 'numeric', 
+                    month: '2-digit', 
+                    day: '2-digit', 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    second: '2-digit' 
+                };
+                document.getElementById('last-update-time').textContent = now.toLocaleString('zh-CN', options);
+            }
+            
+            // 初始更新时间
+            updateTime();
+            
+            // 刷新按钮功能
+            document.getElementById('refresh-btn').addEventListener('click', function() {
+                // 模拟加载效果
+                this.disabled = true;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 更新中...';
+                
+                // 模拟刷新延迟
+                setTimeout(() => {
+                    updateTime();
+                    updateMetrics();
+                    this.disabled = false;
+                    this.innerHTML = '<i class="fas fa-sync-alt"></i> 刷新';
+                }, 1500);
+            });
+            
+            // 模拟实时指标更新
+            function updateMetrics() {
+                // 活跃用户数 - 随机波动
+                const userBase = 8000;
+                const userVariation = Math.floor(Math.random() * 1000);
+                document.getElementById('active-users').textContent = (userBase + userVariation).toLocaleString();
+                
+                // 活跃基准站 - 基本固定但有小幅波动
+                const stationBase = 5200;
+                const stationVariation = Math.floor(Math.random() * 100);
+                document.getElementById('active-stations').textContent = (stationBase + stationVariation).toLocaleString();
+                
+                // 响应时间 - 小数点后两位的随机数，偏好较小值
+                const responseTime = (0.1 + Math.random() * 0.1).toFixed(2);
+                document.getElementById('response-time').textContent = responseTime + 's';
+                
+                // 可用率 - 高可用性，但有小幅波动
+                const uptime = (99.95 + Math.random() * 0.05).toFixed(2);
+                document.getElementById('uptime').textContent = uptime + '%';
+            }
+            
+            // 每30秒自动更新一次指标
+            setInterval(updateMetrics, 30000);
+            
+            // 初始更新指标
+            updateMetrics();
+            
+            // 在地图上创建随机站点指示器 - 比首页更多更密集
+            const mapStations = document.getElementById('map-stations');
+            
+            if (mapStations) {
+                // 创建150个随机分布的站点指示器
+                for (let i = 0; i < 150; i++) {
+                    createMapStation();
+                }
+            }
+            
+            function createMapStation() {
+                const station = document.createElement('div');
+                
+                // 设置随机位置
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                // 设置随机闪烁频率
+                const animationDuration = 1.5 + Math.random() * 3;
+                
+                // 90%是正常站点（蓝色），10%是警告站点（黄色）
+                const isNormal = Math.random() > 0.1;
+                const color = isNormal ? 'var(--tech-cyan)' : 'var(--warning)';
+                
+                // 设置站点样式
+                station.style.cssText = `
+                    position: absolute;
+                    left: ${left}%;
+                    top: ${top}%;
+                    width: 6px;
+                    height: 6px;
+                    background-color: ${color};
+                    border-radius: 50%;
+                    box-shadow: 0 0 5px ${color}, 0 0 10px ${color};
+                    opacity: 0.8;
+                    animation: pulse-station ${animationDuration}s infinite alternate;
+                `;
+                
+                mapStations.appendChild(station);
+            }
+        });
+    </script>
+</body>
+</html> 

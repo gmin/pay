@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精准定位 - 全球网络RTK与PPP服务平台</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <h1>PrecisionNav<span class="highlight">.</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#">服务状态</a></li>
+                <li><a href="#">服务订购</a></li>
+                <li><a href="#">技术支持</a></li>
+                <li><a href="#">关于我们</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn btn-login">登录</button>
+                <button class="btn btn-signup">注册</button>
+            </div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>全球精准定位<br>尽在您的掌握</h1>
+            <p>提供世界领先的实时动态定位(RTK)与精密单点定位(PPP)服务，精度达厘米级</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">立即体验</button>
+                <button class="btn btn-secondary">了解更多</button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="globe-container">
+                <div class="globe-animation"></div>
+                <div class="pulse-circles">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务状态预览 -->
+    <section class="status-preview">
+        <div class="section-header">
+            <h2>全球服务实时状态</h2>
+            <p>查看我们的服务在全球各地区的运行状况</p>
+        </div>
+        <div class="status-map">
+            <div class="map-container">
+                <!-- 这里将通过CSS背景或JavaScript库显示全球地图 -->
+                <div class="status-indicators">
+                    <div class="status-point" style="top: 25%; left: 30%;" data-status="excellent"></div>
+                    <div class="status-point" style="top: 40%; left: 65%;" data-status="good"></div>
+                    <div class="status-point" style="top: 60%; left: 45%;" data-status="average"></div>
+                    <div class="status-point" style="top: 35%; left: 80%;" data-status="excellent"></div>
+                </div>
+            </div>
+            <div class="status-legend">
+                <div class="legend-item">
+                    <span class="status-dot excellent"></span>
+                    <p>优秀</p>
+                </div>
+                <div class="legend-item">
+                    <span class="status-dot good"></span>
+                    <p>良好</p>
+                </div>
+                <div class="legend-item">
+                    <span class="status-dot average"></span>
+                    <p>一般</p>
+                </div>
+                <div class="legend-item">
+                    <span class="status-dot poor"></span>
+                    <p>较差</p>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="btn btn-outline">查看详细状态 <i class="fas fa-arrow-right"></i></a>
+    </section>
+
+    <!-- 服务特点 -->
+    <section class="features">
+        <div class="section-header">
+            <h2>我们的服务优势</h2>
+            <p>提供行业领先的定位解决方案</p>
+        </div>
+        <div class="feature-cards">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>厘米级精度</h3>
+                <p>我们的RTK服务提供厘米级定位精度，满足最严格的精确定位需求</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>全球覆盖</h3>
+                <p>全球网络覆盖，无论您在世界哪个角落，都能获得高精度定位服务</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>实时校正</h3>
+                <p>毫秒级数据传输，确保您获得实时的精确定位信息</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>可靠性保障</h3>
+                <p>99.9%的服务可用性，多重备份系统确保服务高度稳定</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务方案 -->
+    <section class="pricing">
+        <div class="section-header">
+            <h2>定制服务方案</h2>
+            <p>为不同需求提供灵活的服务选择</p>
+        </div>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>基础版</h3>
+                    <p class="price">¥999<span>/月</span></p>
+                </div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> RTK服务基本访问</li>
+                    <li><i class="fas fa-check"></i> 米级PPP精度</li>
+                    <li><i class="fas fa-check"></i> 5个设备授权</li>
+                    <li><i class="fas fa-check"></i> 标准技术支持</li>
+                    <li class="disabled"><i class="fas fa-times"></i> 专家咨询服务</li>
+                </ul>
+                <button class="btn btn-outline-primary">选择方案</button>
+            </div>
+            <div class="pricing-card featured">
+                <div class="popular-tag">推荐</div>
+                <div class="pricing-header">
+                    <h3>专业版</h3>
+                    <p class="price">¥2999<span>/月</span></p>
+                </div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> 完整RTK服务访问</li>
+                    <li><i class="fas fa-check"></i> 厘米级PPP精度</li>
+                    <li><i class="fas fa-check"></i> 20个设备授权</li>
+                    <li><i class="fas fa-check"></i> 优先技术支持</li>
+                    <li><i class="fas fa-check"></i> 月度专家咨询</li>
+                </ul>
+                <button class="btn btn-primary">选择方案</button>
+            </div>
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3>企业版</h3>
+                    <p class="price">定制<span>方案</span></p>
+                </div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> 企业级API访问</li>
+                    <li><i class="fas fa-check"></i> 毫米级PPP精度</li>
+                    <li><i class="fas fa-check"></i> 无限设备授权</li>
+                    <li><i class="fas fa-check"></i> 24/7专属支持</li>
+                    <li><i class="fas fa-check"></i> 定制开发服务</li>
+                </ul>
+                <button class="btn btn-outline-primary">联系我们</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客户案例 -->
+    <section class="clients">
+        <div class="section-header">
+            <h2>值得信赖的合作伙伴</h2>
+            <p>全球领先企业的共同选择</p>
+        </div>
+        <div class="client-logos">
+            <div class="client-logo"></div>
+            <div class="client-logo"></div>
+            <div class="client-logo"></div>
+            <div class="client-logo"></div>
+            <div class="client-logo"></div>
+            <div class="client-logo"></div>
+        </div>
+    </section>
+
+    <!-- 注册预约 -->
+    <section class="cta">
+        <div class="cta-content">
+            <h2>准备好提升您的定位精度了吗？</h2>
+            <p>立即注册，免费体验7天高精度定位服务</p>
+            <button class="btn btn-cta">立即注册</button>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>PrecisionNav<span class="highlight">.</span></h3>
+                <p>提供全球领先的RTK与PPP服务，为精确定位需求提供专业解决方案。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>公司</h4>
+                <ul>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">新闻中心</a></li>
+                    <li><a href="#">加入我们</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>服务</h4>
+                <ul>
+                    <li><a href="#">RTK服务</a></li>
+                    <li><a href="#">PPP服务</a></li>
+                    <li><a href="#">解决方案</a></li>
+                    <li><a href="#">API文档</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>支持</h4>
+                <ul>
+                    <li><a href="#">帮助中心</a></li>
+                    <li><a href="#">服务状态</a></li>
+                    <li><a href="#">常见问题</a></li>
+                    <li><a href="#">技术支持</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 PrecisionNav. 保留所有权利。</p>
+            <div class="footer-links">
+                <a href="#">隐私政策</a>
+                <a href="#">服务条款</a>
+                <a href="#">法律声明</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
