@@ -8,26 +8,27 @@
 
 :root {
     /* 主要颜色方案 - 科技蓝色系 */
-    --primary-color: #2563eb;      /* 主色调 - 明亮的蓝色 */
+    --primary-color: #00f2ff;      /* 主色调 - 霓虹蓝 */
     --primary-light: #60a5fa;      /* 浅蓝色 */
-    --primary-dark: #1e3a8a;       /* 深蓝色 */
+    --primary-dark: #0ea5e9;       /* 深蓝色 */
+    --accent-color: #7c3aed;       /* 强调色 - 紫色 */
     
-    /* 背景与文本颜色 - 明亮主题 */
-    --bg-primary: #f8fafc;         /* 主背景色 - 浅灰蓝 */
-    --bg-secondary: #ffffff;       /* 次要背景色 - 纯白 */
-    --text-primary: #1e293b;       /* 主要文本 - 深灰蓝 */
-    --text-secondary: #64748b;     /* 次要文本 - 中灰 */
+    /* 背景与文本颜色 - 科技感主题 */
+    --bg-primary: #0f172a;         /* 主背景色 - 深蓝黑 */
+    --bg-secondary: #1e293b;       /* 次要背景色 - 深蓝灰 */
+    --text-primary: #f8fafc;       /* 主要文本 - 近白色 */
+    --text-secondary: #94a3b8;     /* 次要文本 - 灰蓝色 */
     
     /* 状态指示颜色 */
-    --status-success: #22c55e;     /* 成功状态 */
-    --status-warning: #f59e0b;     /* 警告状态 */
-    --status-error: #ef4444;       /* 错误状态 */
+    --status-success: #00ff9d;     /* 成功状态 - 霓虹绿 */
+    --status-warning: #ffd700;     /* 警告状态 - 金色 */
+    --status-error: #ff3366;       /* 错误状态 - 霓虹红 */
     
     /* 边框和阴影 */
-    --border-color: #e2e8f0;       /* 边框颜色 */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --border-color: rgba(0, 242, 255, 0.1);  /* 半透明霓虹蓝 */
+    --shadow-sm: 0 0 10px rgba(0, 242, 255, 0.1);
+    --shadow-md: 0 0 20px rgba(0, 242, 255, 0.15);
+    --shadow-lg: 0 0 30px rgba(0, 242, 255, 0.2);
     
     /* 间距 */
     --spacing-xs: 0.5rem;
@@ -68,10 +69,52 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
-    background-image: 
-        radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 0% 100%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+    position: relative;
     min-height: 100vh;
+}
+
+/* 动态背景效果 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(45deg, rgba(0, 242, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0, 242, 255, 0.05) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(0, 242, 255, 0.05) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(0, 242, 255, 0.05) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    z-index: -1;
+    animation: gridMove 20s linear infinite;
+}
+
+/* 光效装饰 */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(0, 242, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 动画关键帧 */
+@keyframes gridMove {
+    0% {
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+    100% {
+        background-position: 20px 0, 20px 10px, 30px -10px, 10px 0px;
+    }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -124,39 +167,54 @@ ul {
 
 /* 按钮样式 */
 .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    background: linear-gradient(45deg, var(--primary-color), var(--primary-dark));
+    color: var(--bg-primary);
+    border: none;
     padding: 0.75rem 1.5rem;
     border-radius: var(--radius-md);
-    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 1rem;
-    border: none;
-    outline: none;
-    background: var(--primary-color);
-    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn:hover {
-    background: var(--primary-dark);
     transform: translateY(-2px);
-}
-
-.btn i {
-    margin-left: 0.5rem;
+    box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
 }
 
 .btn-outline {
     background: transparent;
     border: 2px solid var(--primary-color);
     color: var(--primary-color);
+    box-shadow: none;
 }
 
 .btn-outline:hover {
     background: var(--primary-color);
-    color: white;
+    color: var(--bg-primary);
+    box-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
 }
 
 .btn-outline-primary {
@@ -284,8 +342,33 @@ header {
     position: relative;
     max-width: 1400px;
     margin: 0 auto;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.9));
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(45deg, transparent 48%, var(--primary-color) 50%, transparent 52%);
+    background-size: 10px 10px;
+    opacity: 0.1;
+    animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+    0% {
+        background-position: -100% -100%;
+    }
+    100% {
+        background-position: 200% 200%;
+    }
 }
 
 .hero-content {
@@ -300,7 +383,8 @@ header {
     background: linear-gradient(135deg, #ffffff, #a1a9bc);
     -webkit-background-clip: text;
     background-clip: text;
-    color: var(--primary-dark);
+    color: var(--primary-color);
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
 }
 
 .hero-content p {
@@ -552,18 +636,68 @@ header {
     margin: 0 auto;
 }
 
-.feature-card {
-    background: var(--bg-secondary);
-    border-radius: var(--border-radius-lg);
-    padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* 服务状态卡片样式 */
+.status-card {
+    background: rgba(30, 41, 59, 0.7);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
-    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.status-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(0, 242, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.status-card:hover::before {
+    transform: translateX(100%);
+}
+
+.status-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 特点卡片样式 */
+.feature-card {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(0, 242, 255, 0.1), transparent);
+    transform: translateX(100%);
+    transition: 0.5s;
+}
+
+.feature-card:hover::after {
+    transform: translateX(-100%);
 }
 
 .feature-card:hover {
     transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
 }
 
 .feature-icon {
@@ -571,25 +705,35 @@ header {
     color: var(--primary-color);
     margin-bottom: 1.5rem;
     height: 60px;
-    width: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1.5rem;
-    background: linear-gradient(135deg, rgba(0, 98, 255, 0.1), rgba(0, 229, 255, 0.1));
+    position: relative;
+}
+
+.feature-icon::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.2) 0%, transparent 70%);
     border-radius: 50%;
-    box-shadow: 0 5px 15px rgba(0, 98, 255, 0.2);
+    animation: pulse 2s infinite;
 }
 
-.feature-card h3 {
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-    color: var(--primary-dark);
-}
-
-.feature-card p {
-    color: var(--text-secondary);
-    font-size: 0.95rem;
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
 }
 
 /* 服务方案 */
@@ -606,45 +750,46 @@ header {
     margin-top: 1rem;
 }
 
+/* 价格卡片样式 */
 .pricing-card {
-    background: var(--bg-secondary);
-    border-radius: var(--border-radius-lg);
-    padding: 2.5rem 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(30, 41, 59, 0.7);
     border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    text-align: center;
-    box-shadow: var(--shadow-md);
 }
 
-.pricing-card.featured {
-    border: 1px solid var(--primary-color);
-    background: linear-gradient(135deg, rgba(0, 98, 255, 0.15), rgba(0, 0, 0, 0));
-    transform: scale(1.05);
-    z-index: 1;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+.pricing-card.popular {
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
 }
 
-.pricing-card:hover {
-    transform: translateY(-10px);
-}
-
-.pricing-card.featured:hover {
-    transform: scale(1.05) translateY(-10px);
-}
-
-.popular-tag {
+.pricing-card.popular::before {
+    content: '最受欢迎';
     position: absolute;
     top: 1rem;
     right: -2rem;
     background: var(--primary-color);
-    color: white;
+    color: var(--bg-primary);
     padding: 0.25rem 2rem;
     transform: rotate(45deg);
     font-size: 0.8rem;
     font-weight: bold;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
 }
 
 .pricing-header {
@@ -655,12 +800,6 @@ header {
 
 .pricing-header h3 {
     margin-bottom: 1rem;
-}
-
-.price {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary-dark);
 }
 
 .price span {
@@ -714,18 +853,35 @@ header {
     align-items: center;
 }
 
+/* 客户案例样式 */
 .client-logo {
-    height: 70px;
-    background: var(--bg-secondary);
-    border-radius: var(--border-radius-md);
+    background: rgba(30, 41, 59, 0.7);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.client-logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(0, 242, 255, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.client-logo:hover::before {
+    transform: translateX(100%);
 }
 
 .client-logo:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
 }
 
 /* 注册预约 */
@@ -929,6 +1085,25 @@ footer {
         width: 250px;
         height: 250px;
     }
+    
+    :root {
+        --spacing-md: 1.5rem;
+        --spacing-lg: 3rem;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+    }
+    
+    .feature-card,
+    .pricing-card,
+    .status-card {
+        margin-bottom: 1.5rem;
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -978,6 +1153,18 @@ footer {
     border-radius: 50%;
     display: inline-block;
     margin-right: 8px;
+    position: relative;
+}
+
+.status-indicator::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
 }
 
 .status-active {
@@ -1015,10 +1202,11 @@ footer {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-light);
+    background: var(--primary-color);
     border-radius: 4px;
+    box-shadow: 0 0 10px var(--primary-color);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
+    background: var(--primary-light);
 } 
