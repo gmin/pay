@@ -615,37 +615,57 @@ header {
 
 .status-point {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-.status-point::before {
+/* 状态点悬停效果 */
+.status-point:hover {
+    transform: scale(1.2);
+}
+
+/* 在线状态点动画 */
+.status-point:not([data-status="offline"])::before {
     content: '';
     position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
     border-radius: 50%;
     background: inherit;
     opacity: 0.2;
     animation: pulse-status 2s infinite;
 }
 
-.status-point::after {
+.status-point:not([data-status="offline"])::after {
     content: '';
     position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
     border-radius: 50%;
     background: inherit;
     opacity: 0.1;
     animation: pulse-status 2s infinite 0.3s;
+}
+
+/* 离线状态点样式 */
+.status-point[data-status="offline"] {
+    background-color: var(--status-offline);
+    box-shadow: none;
+    opacity: 0.5;
+    border: 2px solid rgba(107, 114, 128, 0.3);
+}
+
+.status-point[data-status="offline"]::before,
+.status-point[data-status="offline"]::after {
+    display: none;
 }
 
 /* 状态点动画 */
@@ -685,24 +705,12 @@ header {
     box-shadow: 0 0 10px var(--status-poor);
 }
 
-.status-point[data-status="offline"] {
-    background-color: var(--status-offline);
-    box-shadow: 0 0 10px var(--status-offline);
-    animation: none;
-}
-
-.status-point[data-status="offline"]::before,
-.status-point[data-status="offline"]::after {
-    animation: none;
-    opacity: 0.1;
-}
-
-/* 状态提示框 */
+/* 状态提示框样式 */
 .status-tooltip {
     position: absolute;
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(15, 23, 42, 0.95);
     border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.25rem;
     border-radius: var(--radius-md);
     font-size: 0.875rem;
     color: var(--text-primary);
@@ -714,20 +722,66 @@ header {
     transition: all 0.3s ease;
     z-index: 100;
     white-space: nowrap;
+    min-width: 200px;
 }
 
+.status-tooltip .status-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.status-tooltip .status-title {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.status-tooltip .status-details {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.status-tooltip .status-metrics {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.status-tooltip .metric {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.status-tooltip .metric-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.status-tooltip .metric-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* 状态点显示提示框 */
 .status-point:hover .status-tooltip {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-5px);
 }
 
-/* 状态图例 */
+/* 状态图例样式更新 */
 .status-legend {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
     margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
 }
 
 .legend-item {
@@ -737,46 +791,48 @@ header {
     padding: 0.5rem 1rem;
     border-radius: var(--radius-md);
     background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
 }
 
-.legend-item:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
+.legend-item.offline {
+    opacity: 0.7;
 }
 
 .status-dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     display: inline-block;
-}
-
-.status-dot.excellent {
-    background-color: var(--status-excellent);
-    box-shadow: 0 0 10px var(--status-excellent);
-}
-
-.status-dot.good {
-    background-color: var(--status-good);
-    box-shadow: 0 0 10px var(--status-good);
-}
-
-.status-dot.average {
-    background-color: var(--status-average);
-    box-shadow: 0 0 10px var(--status-average);
-}
-
-.status-dot.poor {
-    background-color: var(--status-poor);
-    box-shadow: 0 0 10px var(--status-poor);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .status-dot.offline {
     background-color: var(--status-offline);
-    box-shadow: 0 0 10px var(--status-offline);
+    box-shadow: none;
+    opacity: 0.5;
+    border: 2px solid rgba(107, 114, 128, 0.3);
+}
+
+/* 状态点类型 */
+.status-point[data-status="excellent"] {
+    background-color: var(--status-excellent);
+    box-shadow: 0 0 10px var(--status-excellent);
+}
+
+.status-point[data-status="good"] {
+    background-color: var(--status-good);
+    box-shadow: 0 0 10px var(--status-good);
+}
+
+.status-point[data-status="average"] {
+    background-color: var(--status-average);
+    box-shadow: 0 0 10px var(--status-average);
+}
+
+.status-point[data-status="poor"] {
+    background-color: var(--status-poor);
+    box-shadow: 0 0 10px var(--status-poor);
 }
 
 /* 服务状态列表 */

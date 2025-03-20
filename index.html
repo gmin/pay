@@ -65,35 +65,147 @@
     <!-- 服务状态预览 -->
     <section class="status-preview">
         <div class="section-header">
-            <h2>全球服务实时状态</h2>
-            <p>查看我们的服务在全球各地区的运行状况</p>
+            <h2>全球服务状态</h2>
+            <p>实时监控全球各地区服务状态</p>
         </div>
         <div class="status-map">
             <div class="map-container">
-                <!-- 这里将通过CSS背景或JavaScript库显示全球地图 -->
-                <div class="status-indicators">
-                    <div class="status-point" style="top: 25%; left: 30%;" data-status="excellent"></div>
-                    <div class="status-point" style="top: 40%; left: 65%;" data-status="good"></div>
-                    <div class="status-point" style="top: 60%; left: 45%;" data-status="average"></div>
-                    <div class="status-point" style="top: 35%; left: 80%;" data-status="excellent"></div>
+                <!-- 亚太地区节点 -->
+                <div class="status-point" data-status="excellent" style="top: 35%; left: 75%;">
+                    <div class="status-tooltip">
+                        <div class="status-info">
+                            <div class="status-title">东京节点</div>
+                            <div class="status-details">亚太地区 - 优秀状态</div>
+                            <div class="status-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">延迟</span>
+                                    <span class="metric-value">12ms</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">可用性</span>
+                                    <span class="metric-value">99.99%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-point" data-status="offline" style="top: 45%; left: 70%;">
+                    <div class="status-tooltip">
+                        <div class="status-info">
+                            <div class="status-title">首尔节点</div>
+                            <div class="status-details">亚太地区 - 离线状态</div>
+                            <div class="status-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">状态</span>
+                                    <span class="metric-value">维护中</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">预计恢复</span>
+                                    <span class="metric-value">2小时</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 欧洲地区节点 -->
+                <div class="status-point" data-status="good" style="top: 25%; left: 45%;">
+                    <div class="status-tooltip">
+                        <div class="status-info">
+                            <div class="status-title">法兰克福节点</div>
+                            <div class="status-details">欧洲地区 - 良好状态</div>
+                            <div class="status-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">延迟</span>
+                                    <span class="metric-value">18ms</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">可用性</span>
+                                    <span class="metric-value">99.95%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-point" data-status="offline" style="top: 20%; left: 40%;">
+                    <div class="status-tooltip">
+                        <div class="status-info">
+                            <div class="status-title">伦敦节点</div>
+                            <div class="status-details">欧洲地区 - 离线状态</div>
+                            <div class="status-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">状态</span>
+                                    <span class="metric-value">系统升级</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">预计恢复</span>
+                                    <span class="metric-value">4小时</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 北美地区节点 -->
+                <div class="status-point" data-status="average" style="top: 30%; left: 20%;">
+                    <div class="status-tooltip">
+                        <div class="status-info">
+                            <div class="status-title">纽约节点</div>
+                            <div class="status-details">北美地区 - 一般状态</div>
+                            <div class="status-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">延迟</span>
+                                    <span class="metric-value">25ms</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">可用性</span>
+                                    <span class="metric-value">99.8%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="status-point" data-status="offline" style="top: 35%; left: 15%;">
+                    <div class="status-tooltip">
+                        <div class="status-info">
+                            <div class="status-title">洛杉矶节点</div>
+                            <div class="status-details">北美地区 - 离线状态</div>
+                            <div class="status-metrics">
+                                <div class="metric">
+                                    <span class="metric-label">状态</span>
+                                    <span class="metric-value">网络异常</span>
+                                </div>
+                                <div class="metric">
+                                    <span class="metric-label">预计恢复</span>
+                                    <span class="metric-value">待定</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
+            <!-- 状态图例 -->
             <div class="status-legend">
                 <div class="legend-item">
                     <span class="status-dot excellent"></span>
-                    <p>优秀</p>
+                    <span>优秀</span>
                 </div>
                 <div class="legend-item">
                     <span class="status-dot good"></span>
-                    <p>良好</p>
+                    <span>良好</span>
                 </div>
                 <div class="legend-item">
                     <span class="status-dot average"></span>
-                    <p>一般</p>
+                    <span>一般</span>
                 </div>
                 <div class="legend-item">
                     <span class="status-dot poor"></span>
-                    <p>较差</p>
+                    <span>较差</span>
+                </div>
+                <div class="legend-item offline">
+                    <span class="status-dot offline"></span>
+                    <span>离线</span>
                 </div>
             </div>
         </div>
