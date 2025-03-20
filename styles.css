@@ -56,6 +56,13 @@
     --border-radius-md: 8px;
     --border-radius-lg: 16px;
     --border-radius-xl: 24px;
+
+    /* 服务状态指示颜色 */
+    --status-excellent: #00ff9d;     /* 优秀状态 - 霓虹绿 */
+    --status-good: #00f2ff;         /* 良好状态 - 霓虹蓝 */
+    --status-average: #ffd700;      /* 一般状态 - 金色 */
+    --status-poor: #ff3366;         /* 较差状态 - 霓虹红 */
+    --status-offline: #6b7280;      /* 离线状态 - 灰色 */
 }
 
 html {
@@ -534,54 +541,132 @@ header {
     height: 12px;
     border-radius: 50%;
     cursor: pointer;
-    animation: pulse-point 2s infinite;
+    transition: all 0.3s ease;
 }
 
-.status-point[data-status="excellent"] {
-    background-color: var(--color-excellent);
-    box-shadow: 0 0 10px var(--color-excellent);
+.status-point::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.2;
+    animation: pulse-status 2s infinite;
 }
 
-.status-point[data-status="good"] {
-    background-color: var(--color-good);
-    box-shadow: 0 0 10px var(--color-good);
+.status-point::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.1;
+    animation: pulse-status 2s infinite 0.3s;
 }
 
-.status-point[data-status="average"] {
-    background-color: var(--color-average);
-    box-shadow: 0 0 10px var(--color-average);
-}
-
-.status-point[data-status="poor"] {
-    background-color: var(--color-poor);
-    box-shadow: 0 0 10px var(--color-poor);
-}
-
-@keyframes pulse-point {
+/* 状态点动画 */
+@keyframes pulse-status {
     0% {
         transform: scale(1);
-        opacity: 1;
+        opacity: 0.3;
     }
     50% {
-        transform: scale(1.3);
-        opacity: 0.7;
+        transform: scale(1.5);
+        opacity: 0.1;
     }
     100% {
         transform: scale(1);
-        opacity: 1;
+        opacity: 0.3;
     }
 }
 
+/* 状态点类型 */
+.status-point[data-status="excellent"] {
+    background-color: var(--status-excellent);
+    box-shadow: 0 0 10px var(--status-excellent);
+}
+
+.status-point[data-status="good"] {
+    background-color: var(--status-good);
+    box-shadow: 0 0 10px var(--status-good);
+}
+
+.status-point[data-status="average"] {
+    background-color: var(--status-average);
+    box-shadow: 0 0 10px var(--status-average);
+}
+
+.status-point[data-status="poor"] {
+    background-color: var(--status-poor);
+    box-shadow: 0 0 10px var(--status-poor);
+}
+
+.status-point[data-status="offline"] {
+    background-color: var(--status-offline);
+    box-shadow: 0 0 10px var(--status-offline);
+    animation: none;
+}
+
+.status-point[data-status="offline"]::before,
+.status-point[data-status="offline"]::after {
+    animation: none;
+    opacity: 0.1;
+}
+
+/* 状态提示框 */
+.status-tooltip {
+    position: absolute;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    white-space: nowrap;
+}
+
+.status-point:hover .status-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 状态图例 */
 .status-legend {
     display: flex;
     justify-content: center;
     gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
 .legend-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.legend-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
 }
 
 .status-dot {
@@ -592,19 +677,93 @@ header {
 }
 
 .status-dot.excellent {
-    background-color: var(--color-excellent);
+    background-color: var(--status-excellent);
+    box-shadow: 0 0 10px var(--status-excellent);
 }
 
 .status-dot.good {
-    background-color: var(--color-good);
+    background-color: var(--status-good);
+    box-shadow: 0 0 10px var(--status-good);
 }
 
 .status-dot.average {
-    background-color: var(--color-average);
+    background-color: var(--status-average);
+    box-shadow: 0 0 10px var(--status-average);
 }
 
 .status-dot.poor {
-    background-color: var(--color-poor);
+    background-color: var(--status-poor);
+    box-shadow: 0 0 10px var(--status-poor);
+}
+
+.status-dot.offline {
+    background-color: var(--status-offline);
+    box-shadow: 0 0 10px var(--status-offline);
+}
+
+/* 服务状态列表 */
+.status-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.status-item {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.status-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.status-item-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.status-item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.status-item-name {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.status-item-location {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.status-item-metrics {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.metric {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.metric-value {
+    color: var(--text-primary);
+    font-weight: 500;
 }
 
 /* 服务特点 */
