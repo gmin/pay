@@ -7,16 +7,16 @@
 }
 
 :root {
-    /* 主要颜色方案 - 科技蓝色系 */
+    /* 主要颜色方案 - 深邃星空 */
     --primary-color: #00f2ff;      /* 主色调 - 霓虹蓝 */
     --primary-light: #60a5fa;      /* 浅蓝色 */
     --primary-dark: #0ea5e9;       /* 深蓝色 */
     --accent-color: #7c3aed;       /* 强调色 - 紫色 */
     
-    /* 背景与文本颜色 - 科技感主题 */
-    --bg-primary: #1a237e;         /* 主背景色 - 蔚蓝色 */
-    --bg-secondary: #2c3e50;       /* 次要背景色 - 深蓝灰 */
-    --text-primary: #f8fafc;       /* 主要文本 - 近白色 */
+    /* 背景与文本颜色 - 星空主题 */
+    --bg-primary: #000000;         /* 主背景色 - 纯黑 */
+    --bg-secondary: #0f172a;       /* 次要背景色 - 深蓝黑 */
+    --text-primary: #ffffff;       /* 主要文本 - 纯白色 */
     --text-secondary: #94a3b8;     /* 次要文本 - 灰蓝色 */
     
     /* 状态指示颜色 */
@@ -72,9 +72,9 @@ html {
 
 body {
     background: linear-gradient(135deg,
-        #1a237e,  /* 深蔚蓝 */
-        #0d47a1,  /* 中蔚蓝 */
-        #1a237e   /* 深蔚蓝 */
+        #0a192f 0%,      /* 深邃蓝 */
+        #172a45 50%,     /* 深蓝 */
+        #1a365d 100%     /* 靛蓝 */
     );
     position: relative;
     color: var(--text-primary);
@@ -92,22 +92,23 @@ body::before {
     width: 100%;
     height: 100%;
     background-image: 
-        radial-gradient(1px 1px at 10% 10%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
-        radial-gradient(2px 2px at 20% 20%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-        radial-gradient(1px 1px at 30% 30%, rgba(255, 255, 255, 0.95) 50%, transparent 100%),
-        radial-gradient(2px 2px at 40% 40%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
-        radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
-        radial-gradient(1px 1px at 60% 60%, rgba(255, 255, 255, 0.8) 50%, transparent 100%),
-        radial-gradient(2px 2px at 70% 70%, rgba(255, 255, 255, 0.95) 50%, transparent 100%),
-        radial-gradient(1px 1px at 80% 80%, rgba(255, 255, 255, 0.7) 50%, transparent 100%),
-        radial-gradient(1px 1px at 90% 90%, rgba(255, 255, 255, 0.9) 50%, transparent 100%);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
-    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+        radial-gradient(1px 1px at 5% 5%, rgba(255, 255, 255, 1) 50%, transparent 100%),
+        radial-gradient(2px 2px at 15% 15%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+        radial-gradient(1px 1px at 25% 25%, rgba(255, 255, 255, 1) 50%, transparent 100%),
+        radial-gradient(2px 2px at 35% 35%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+        radial-gradient(1px 1px at 45% 45%, rgba(255, 255, 255, 1) 50%, transparent 100%),
+        radial-gradient(2px 2px at 55% 55%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+        radial-gradient(1px 1px at 65% 65%, rgba(255, 255, 255, 1) 50%, transparent 100%),
+        radial-gradient(2px 2px at 75% 75%, rgba(255, 255, 255, 0.9) 50%, transparent 100%),
+        radial-gradient(1px 1px at 85% 85%, rgba(255, 255, 255, 1) 50%, transparent 100%),
+        radial-gradient(2px 2px at 95% 95%, rgba(255, 255, 255, 0.9) 50%, transparent 100%);
+    background-size: 250px 250px;
     animation: twinkle 5s infinite;
     z-index: -2;
+    opacity: 0.8;
 }
 
-/* 星云层 */
+/* 星云效果 */
 body::after {
     content: '';
     position: fixed;
@@ -116,13 +117,118 @@ body::after {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.2) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(0, 242, 255, 0.2) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 60%),
-        radial-gradient(circle at 30% 70%, rgba(0, 242, 255, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 20%, rgba(79, 172, 254, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 242, 254, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 105, 180, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 30% 70%, rgba(79, 172, 254, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(255, 105, 180, 0.1) 0%, transparent 50%);
     z-index: -1;
     opacity: 0.7;
-    animation: nebula 15s infinite alternate;
+    animation: nebula 20s infinite alternate;
+    filter: blur(30px);
+}
+
+/* 行星环效果 */
+.planet-rings {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.planet-ring {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: 2px solid rgba(79, 172, 254, 0.3);
+    transform: rotate(-45deg);
+    box-shadow: 
+        0 0 50px rgba(79, 172, 254, 0.2),
+        inset 0 0 50px rgba(79, 172, 254, 0.2);
+    animation: rotate 60s linear infinite;
+}
+
+.planet-ring::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 105, 180, 0.2);
+    box-shadow: 
+        0 0 50px rgba(255, 105, 180, 0.2),
+        inset 0 0 50px rgba(255, 105, 180, 0.2);
+    animation: pulse 4s infinite alternate;
+}
+
+.planet-ring::after {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 242, 254, 0.2);
+    box-shadow: 
+        0 0 30px rgba(0, 242, 254, 0.1),
+        inset 0 0 30px rgba(0, 242, 254, 0.1);
+    animation: rotate-reverse 40s linear infinite;
+}
+
+/* 行星旋转动画 */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-reverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+/* 脉冲动画 */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+/* 星云动画 */
+@keyframes nebula {
+    0% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.1) translate(1%, 1%);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1) translate(0, 0);
+        opacity: 0.7;
+    }
 }
 
 /* 星星闪烁动画 */
@@ -132,22 +238,6 @@ body::after {
     }
     50% {
         opacity: 0.5;
-    }
-}
-
-/* 星云动画 */
-@keyframes nebula {
-    0% {
-        transform: scale(1);
-        opacity: 0.7;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.7;
     }
 }
 
@@ -427,46 +517,19 @@ header {
     position: relative;
     max-width: 1400px;
     margin: 0 auto;
-    background: linear-gradient(135deg, 
-        rgba(26, 35, 126, 0.4),  /* 更透明的深蓝色 */
-        rgba(13, 71, 161, 0.3)   /* 更透明的中蓝色 */
-    );
-    border: 1px solid rgba(0, 242, 255, 0.3);  /* 更明显的边框 */
-    box-shadow: 
-        0 0 30px rgba(0, 242, 255, 0.2),
-        inset 0 0 50px rgba(0, 242, 255, 0.1);  /* 内部光晕 */
     overflow: hidden;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-radius: var(--radius-lg);
 }
 
 .hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        linear-gradient(45deg, transparent 48%, rgba(0, 242, 255, 0.3) 50%, transparent 52%);
-    background-size: 10px 10px;
-    opacity: 0.3;
-    animation: shine 3s linear infinite;
-}
-
-@keyframes shine {
-    0% {
-        background-position: -100% -100%;
-    }
-    100% {
-        background-position: 200% 200%;
-    }
+    content: none;  /* 移除原来的背景效果 */
 }
 
 .hero-content {
     flex: 1;
     max-width: 600px;
+    position: relative;
+    z-index: 2;  /* 确保内容在最上层 */
 }
 
 .hero-content h1 {
@@ -475,8 +538,8 @@ header {
     line-height: 1.2;
     color: var(--text-primary);
     text-shadow: 
-        0 0 20px rgba(0, 242, 255, 0.5),
-        0 0 40px rgba(0, 242, 255, 0.3);
+        0 0 30px rgba(0, 242, 255, 0.6),
+        0 0 60px rgba(0, 242, 255, 0.4);
     background: linear-gradient(135deg, #ffffff, #00f2ff);
     -webkit-background-clip: text;
     background-clip: text;
@@ -485,10 +548,10 @@ header {
 
 .hero-content p {
     font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);  /* 更亮的文字颜色 */
+    color: rgba(255, 255, 255, 0.95);  /* 更亮的文字颜色 */
     margin-bottom: 2.5rem;
     max-width: 90%;
-    text-shadow: 0 0 10px rgba(0, 242, 255, 0.3);  /* 添加文字光晕 */
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.4);  /* 增强文字光晕 */
 }
 
 .hero-buttons {
@@ -507,6 +570,7 @@ header {
     position: relative;
     width: 400px;
     height: 400px;
+    z-index: 1;  /* 确保在适当的层级 */
 }
 
 .globe-animation {
@@ -514,27 +578,27 @@ header {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: radial-gradient(circle at center, rgba(0, 242, 255, 0.2) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(0, 242, 255, 0.25) 0%, transparent 70%);
     box-shadow: 
-        0 0 80px rgba(0, 242, 255, 0.3),
-        inset 0 0 60px rgba(0, 242, 255, 0.2);
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><circle cx="200" cy="200" r="198" fill="none" stroke="rgba(0,242,255,0.4)" stroke-width="1" stroke-dasharray="3,3"/><circle cx="200" cy="200" r="150" fill="none" stroke="rgba(0,242,255,0.5)" stroke-width="1" stroke-dasharray="3,3"/><circle cx="200" cy="200" r="100" fill="none" stroke="rgba(0,242,255,0.6)" stroke-width="1" stroke-dasharray="3,3"/></svg>');
+        0 0 100px rgba(0, 242, 255, 0.4),
+        inset 0 0 80px rgba(0, 242, 255, 0.3);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400"><circle cx="200" cy="200" r="198" fill="none" stroke="rgba(0,242,255,0.5)" stroke-width="1" stroke-dasharray="3,3"/><circle cx="200" cy="200" r="150" fill="none" stroke="rgba(0,242,255,0.6)" stroke-width="1" stroke-dasharray="3,3"/><circle cx="200" cy="200" r="100" fill="none" stroke="rgba(0,242,255,0.7)" stroke-width="1" stroke-dasharray="3,3"/></svg>');
     animation: globeRotate 60s linear infinite;
 }
 
 .pulse-circles span {
     position: absolute;
     border-radius: 50%;
-    border: 2px solid rgba(0, 242, 255, 0.5);  /* 更明显的边框 */
+    border: 2px solid rgba(0, 242, 255, 0.6);  /* 更明显的边框 */
     animation: pulse 3s linear infinite;
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);  /* 添加光晕效果 */
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.3);  /* 增强光晕效果 */
 }
 
 .pulse-circles span:nth-child(1) {
     width: 100%;
     height: 100%;
     animation-delay: 0s;
-    border-color: rgba(0, 242, 255, 0.6);
+    border-color: rgba(0, 242, 255, 0.7);
 }
 
 .pulse-circles span:nth-child(2) {
@@ -543,7 +607,7 @@ header {
     top: 10%;
     left: 10%;
     animation-delay: 1s;
-    border-color: rgba(0, 242, 255, 0.5);
+    border-color: rgba(0, 242, 255, 0.6);
 }
 
 .pulse-circles span:nth-child(3) {
@@ -552,7 +616,7 @@ header {
     top: 20%;
     left: 20%;
     animation-delay: 2s;
-    border-color: rgba(0, 242, 255, 0.4);
+    border-color: rgba(0, 242, 255, 0.5);
 }
 
 @keyframes pulse {
@@ -623,236 +687,229 @@ header {
 
 .map-container {
     position: relative;
-    height: 400px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500"><path d="M50,250 Q250,100 500,250 T950,250" fill="none" stroke="rgba(0,96,255,0.3)" stroke-width="0.5"/><path d="M50,150 Q250,300 500,150 T950,150" fill="none" stroke="rgba(0,96,255,0.3)" stroke-width="0.5"/><path d="M50,350 Q250,200 500,350 T950,350" fill="none" stroke="rgba(0,96,255,0.3)" stroke-width="0.5"/></svg>');
-    background-size: cover;
-    background-position: center;
+    height: 500px;
+    background: linear-gradient(135deg, 
+        rgba(26, 35, 126, 0.3),
+        rgba(13, 71, 161, 0.2)
+    );
     border-radius: var(--border-radius-lg);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.2),
+        inset 0 0 50px rgba(0, 242, 255, 0.1);
     overflow: hidden;
+    backdrop-filter: blur(10px);
 }
 
+/* 站点样式 */
 .status-point {
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    z-index: 2;
 }
 
-/* 状态点悬停效果 */
+/* 站点悬停效果 */
 .status-point:hover {
-    transform: scale(1.2);
+    transform: scale(1.3);
+    z-index: 3;
 }
 
-/* 在线状态点动画 */
+/* 站点状态动画 */
 .status-point:not([data-status="offline"])::before {
     content: '';
     position: absolute;
-    top: -6px;
-    left: -6px;
-    right: -6px;
-    bottom: -6px;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
     border-radius: 50%;
     background: inherit;
-    opacity: 0.2;
+    opacity: 0.3;
     animation: pulse-status 2s infinite;
 }
 
 .status-point:not([data-status="offline"])::after {
     content: '';
     position: absolute;
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
     border-radius: 50%;
     background: inherit;
-    opacity: 0.1;
+    opacity: 0.2;
     animation: pulse-status 2s infinite 0.3s;
 }
 
-/* 离线状态点样式 */
+/* 站点状态类型 */
+.status-point[data-status="excellent"] {
+    background-color: var(--status-excellent);
+    box-shadow: 
+        0 0 15px var(--status-excellent),
+        0 0 30px rgba(0, 255, 157, 0.4);
+    border: 2px solid rgba(0, 255, 157, 0.8);
+}
+
+.status-point[data-status="good"] {
+    background-color: var(--status-good);
+    box-shadow: 
+        0 0 15px var(--status-good),
+        0 0 30px rgba(0, 242, 255, 0.4);
+    border: 2px solid rgba(0, 242, 255, 0.8);
+}
+
+.status-point[data-status="average"] {
+    background-color: var(--status-average);
+    box-shadow: 
+        0 0 15px var(--status-average),
+        0 0 30px rgba(255, 215, 0, 0.4);
+    border: 2px solid rgba(255, 215, 0, 0.8);
+}
+
+.status-point[data-status="poor"] {
+    background-color: var(--status-poor);
+    box-shadow: 
+        0 0 15px var(--status-poor),
+        0 0 30px rgba(255, 51, 102, 0.4);
+    border: 2px solid rgba(255, 51, 102, 0.8);
+}
+
 .status-point[data-status="offline"] {
     background-color: var(--status-offline);
     box-shadow: none;
-    opacity: 0.5;
-    border: 2px solid rgba(107, 114, 128, 0.3);
-}
-
-.status-point[data-status="offline"]::before,
-.status-point[data-status="offline"]::after {
-    display: none;
+    border: 2px solid rgba(107, 114, 128, 0.5);
+    opacity: 0.7;
 }
 
 /* 状态点动画 */
 @keyframes pulse-status {
     0% {
         transform: scale(1);
-        opacity: 0.3;
+        opacity: 0.4;
     }
     50% {
         transform: scale(1.5);
-        opacity: 0.1;
+        opacity: 0.2;
     }
     100% {
         transform: scale(1);
-        opacity: 0.3;
+        opacity: 0.4;
     }
-}
-
-/* 状态点类型 */
-.status-point[data-status="excellent"] {
-    background-color: var(--status-excellent);
-    box-shadow: 0 0 10px var(--status-excellent);
-}
-
-.status-point[data-status="good"] {
-    background-color: var(--status-good);
-    box-shadow: 0 0 10px var(--status-good);
-}
-
-.status-point[data-status="average"] {
-    background-color: var(--status-average);
-    box-shadow: 0 0 10px var(--status-average);
-}
-
-.status-point[data-status="poor"] {
-    background-color: var(--status-poor);
-    box-shadow: 0 0 10px var(--status-poor);
 }
 
 /* 状态提示框样式 */
 .status-tooltip {
     position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 250px;
     background: rgba(15, 23, 42, 0.95);
     border: 1px solid var(--border-color);
-    padding: 0.75rem 1.25rem;
+    padding: 1rem 1.5rem;
     border-radius: var(--radius-md);
     font-size: 0.875rem;
     color: var(--text-primary);
     backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(0, 242, 255, 0.2);
     pointer-events: none;
     opacity: 0;
-    transform: translateY(10px);
+    visibility: hidden;
     transition: all 0.3s ease;
     z-index: 100;
-    white-space: nowrap;
-    min-width: 200px;
 }
 
-.status-tooltip .status-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+.status-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px 8px 0;
+    border-style: solid;
+    border-color: rgba(15, 23, 42, 0.95) transparent transparent transparent;
 }
 
-.status-tooltip .status-title {
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-.status-tooltip .status-details {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-.status-tooltip .status-metrics {
-    display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    border-top: 1px solid var(--border-color);
-}
-
-.status-tooltip .metric {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.status-tooltip .metric-label {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-}
-
-.status-tooltip .metric-value {
-    font-weight: 600;
-    color: var(--text-primary);
-}
-
-/* 状态点显示提示框 */
 .status-point:hover .status-tooltip {
     opacity: 1;
-    transform: translateY(-5px);
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
 }
 
-/* 状态图例样式更新 */
+/* 状态图例样式 */
 .status-legend {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
     flex-wrap: wrap;
     margin-top: 2rem;
-    padding: 1rem;
+    padding: 1.5rem;
     background: rgba(15, 23, 42, 0.5);
     border-radius: var(--radius-lg);
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 242, 255, 0.2);
 }
 
 .legend-item {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
     border-radius: var(--radius-md);
     background: rgba(30, 41, 59, 0.7);
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-.legend-item.offline {
-    opacity: 0.7;
+.legend-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 242, 255, 0.2);
 }
 
+/* 状态点样式 */
 .status-dot {
-    width: 12px;
-    height: 12px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     display: inline-block;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-dot.excellent {
+    background-color: var(--status-excellent);
+    box-shadow: 0 0 10px var(--status-excellent);
+    border: 2px solid rgba(0, 255, 157, 0.8);
+}
+
+.status-dot.good {
+    background-color: var(--status-good);
+    box-shadow: 0 0 10px var(--status-good);
+    border: 2px solid rgba(0, 242, 255, 0.8);
+}
+
+.status-dot.average {
+    background-color: var(--status-average);
+    box-shadow: 0 0 10px var(--status-average);
+    border: 2px solid rgba(255, 215, 0, 0.8);
+}
+
+.status-dot.poor {
+    background-color: var(--status-poor);
+    box-shadow: 0 0 10px var(--status-poor);
+    border: 2px solid rgba(255, 51, 102, 0.8);
 }
 
 .status-dot.offline {
     background-color: var(--status-offline);
-    box-shadow: none;
-    opacity: 0.5;
-    border: 2px solid rgba(107, 114, 128, 0.3);
-}
-
-/* 状态点类型 */
-.status-point[data-status="excellent"] {
-    background-color: var(--status-excellent);
-    box-shadow: 0 0 10px var(--status-excellent);
-}
-
-.status-point[data-status="good"] {
-    background-color: var(--status-good);
-    box-shadow: 0 0 10px var(--status-good);
-}
-
-.status-point[data-status="average"] {
-    background-color: var(--status-average);
-    box-shadow: 0 0 10px var(--status-average);
-}
-
-.status-point[data-status="poor"] {
-    background-color: var(--status-poor);
-    box-shadow: 0 0 10px var(--status-poor);
+    border: 2px solid rgba(107, 114, 128, 0.5);
+    opacity: 0.7;
 }
 
 /* 服务状态列表 */
